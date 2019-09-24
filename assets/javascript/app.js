@@ -41,8 +41,12 @@
 
 database.ref().on("child_added", function(childSnapshot) {
 
+    var now = moment().format('hh:mm a');
     var trainStart = childSnapshot.val().start;
-    var timeRemain = timeUntil % childSnapshot.val().trainFrequency;
+    var timeRemaining = timeUntil % childSnapshot.val().trainFrequency;
+
+
+
     var nextTrain = childSnapshot.val().trainFrequency - timeUntil;
     var arrivalTime = moment().add(timeUntil, "minutes");
     console.log(trainName)
@@ -52,8 +56,8 @@ database.ref().on("child_added", function(childSnapshot) {
     //time remaining = diff/freq
     //min to arrival = freq - timeRemain
     //next train = moment + minTo arrival
+    // var timeUntil = moment().diff(moment(trainStart, "X"), "minutes");
     var trainStartPretty = moment.unix(trainStart).format("MM/DD/YYYY");
-    var timeUntil = moment().diff(moment(trainStart, "X"), "minutes");
 
     
     var newRow = $("<tr>").append(
