@@ -3,6 +3,13 @@
     background-color: black;
     color: white;
 }
+body {
+    background-image: url(../images/terminal.jpg)
+}
 .form-row {
     width: 500px;
+}
+
+#display {
+    background-color: white;
 }
