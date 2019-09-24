@@ -16,63 +16,55 @@
 
   var name = "";
   var destination = "";
-//   var firstTrain = "";
+  var start = "";
   var frequency = 0;
-//   var train = {
-//       name: "",
-//       destination: "",
-//       first: "",
-//       frequency: "",
-//   }
-  var now = moment().format("MM/YYYY");
 
 
 
   $("#submit").on("click", function() {
     event.preventDefault();
-    // Storing and retreiving new train data
     trainName = $("#name-input").val();
-    trainDestination = $("#destination-input").val();
-    // trainFirst = $("#first-train").val();
-    trainFrequency = $("#frequency-input").val();
+    destination = $("#destination-input").val();
+    frequency = $("#frequency-input").val();
+    startTime = $("#first-input").val();
 
     // Pushing to database
-    database.ref().set({
-        name: trainName,
-        destination: trainDestination,
-        // first: trainFirst,
-        frequency: trainFrequency,
+    database.ref().push({
+        trainName: trainName,
+        trainDestination: trainDestination,
+        trainFrequency: trainFrequency,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
-    $("form")[0].reset();
 });
 
-database.ref().on("value", function(childSnapshot) {
-    console.log(childSnapshot.val());
+database.ref().on("child_added", function(childSnapshot) {
 
     var trainName = childSnapshot.val().name;
     var trainDestination = childSnapshot.val().destination;
-    // var trainFirst = childSnapshot.val().first;
     var trainFrequency = childSnapshot.val().frequency;
 
-    console.log(trainName)
-    console.log(trainDestination);
-    // console.log(trainFirst);
-    console.log(trainFrequency);
+    //starttime = moment(childSmapshot.val().startTime, "hh:mm").subtract(1, "years");
+    //timeDiff = difference between now and starttime
+    //time remaining = diff/freq
+    //min to arrival = freq - timeRemain
+    //next train = moment + minTo arrival
 
-    // var currentTime = moment.unix(trainFirst).format("MM/DD/YYYY");
+
     
     var newRow = $("<tr>").append(
         $("<td>").text(trainName),
         $("<td>").text(trainDestination),
-        // $("<td>").text(trainFirst),
         $("<td>").text(trainFrequency),
-        // $("<td>").text(currentTime),
         );
 
         $("#train-table > tbody").append(newRow);
 
     
 });
+
+//arrival time
+//time until next arrival -relative to current time
+//function refresh every 60secs
+
 
 
