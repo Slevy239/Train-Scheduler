@@ -9,7 +9,14 @@ body {
 .form-row {
     width: 500px;
 }
-
-#display {
-    background-color: white;
+h4, #display {
+    background-color: black;
+    color: white;
+}
+table {
+    background-color: black;
+    color: white;
+}
+th, tr {
+    color: white;
 }

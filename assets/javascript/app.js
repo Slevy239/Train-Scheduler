@@ -18,6 +18,7 @@
   var trainDestination = "";
   var start = "";
   var trainFrequency = 0;
+  console.log(trainName)
 
 
 
@@ -30,7 +31,7 @@
 
     // Pushing to database
     database.ref().push({
-        // trainName: trainName,
+        trainName: trainName,
         trainDestination: trainDestination,
         trainFrequency: trainFrequency,
         start:start,
@@ -44,10 +45,7 @@ database.ref().on("child_added", function(childSnapshot) {
     var timeRemain = timeUntil % childSnapshot.val().trainFrequency;
     var nextTrain = childSnapshot.val().trainFrequency - timeUntil;
     var arrivalTime = moment().add(timeUntil, "minutes");
-    console.log(timeRemain)
-    console.log(nextTrain)
-    console.log(start)
-    console.log(arrivalTime)
+    console.log(trainName)
 
     //starttime = moment(childSmapshot.val().startTime, "hh:mm").subtract(1, "years");
     //timeDiff = difference between now and starttime
@@ -56,12 +54,11 @@ database.ref().on("child_added", function(childSnapshot) {
     //next train = moment + minTo arrival
     var trainStartPretty = moment.unix(trainStart).format("MM/DD/YYYY");
     var timeUntil = moment().diff(moment(trainStart, "X"), "minutes");
-    console.log(timeUntil)
 
     
     var newRow = $("<tr>").append(
+        $("<td>").text(trainName),
         $("<td>").text(trainDestination),
-        $("<td>").text(trainStartPretty),
         $("<td>").text(trainFrequency),
         $("<td>").text(nextTrain),
         $("<td>")
