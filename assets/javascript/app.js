@@ -42,10 +42,10 @@ database.ref().on("child_added", function(childSnapshot) {
 
 
     var converted = moment(childSnapshot.val().start, "hh:mm").subtract(1, "years");
-    var difference = moment().diff(moment(converted), "minutes");
-    var timeRemaining = difference % childSnapshot.val().trainFrequency;
-    var nextToArrive =childSnapshot.val().trainFrequency - timeRemaining;
-    var next = moment().add(timeRemaining, "minutes").format("hh:mm a");
+    var difference = moment().diff(moment(converted), "minutes"); //showing the difference between now and the start input.
+    var timeRemaining = difference % childSnapshot.val().trainFrequency; //train frequency/ the difference. the remainder is how much time is left until the next train.
+    var nextToArrive =childSnapshot.val().trainFrequency - timeRemaining; //based on train frequency, it is subtracted by the time remaining to show the time until next train
+    var next = moment().add(timeRemaining, "minutes").format("hh:mm a"); //adding current time to time remaing and reformatting
     var trainStart = childSnapshot.val().start;
 
 
@@ -66,9 +66,6 @@ database.ref().on("child_added", function(childSnapshot) {
     
 });
 
-//arrival time
-//time until next arrival -relative to current time
-//function refresh every 60secs
 
 
 

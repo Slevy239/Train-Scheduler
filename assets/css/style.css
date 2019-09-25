@@ -5,11 +5,10 @@
     padding-bottom: 5px;
 }
 body {
-    background-image: url(../images/terminal.jpg)
+    background-image: url(../images/terminal.jpg);
+    background-size: cover;
 }
-.form-row {
-    width: 500px;
-}
+
 h4, #display {
     background-color: black;
     color: white;
@@ -20,6 +19,11 @@ table {
 }
 th, tr {
     color: white;
+}
+
+.card, .form-control {
+    background-color: black;
+    color: red;
 }
 
 .form-row {
