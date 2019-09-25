@@ -18,13 +18,12 @@
   var trainDestination = "";
   var start = "";
   var trainFrequency = 0;
-  console.log(trainName)
 
 
 
   $("#submit").on("click", function(event) {
     event.preventDefault();
-    trainName = $("#name-input").val();
+    nameInput = $("#name-input").val();
     trainDestination = $("#destination-input").val();
     trainFrequency = $("#frequency-input").val();
     start = $("#first-input").val();
@@ -41,31 +40,25 @@
 
 database.ref().on("child_added", function(childSnapshot) {
 
-    var now = moment().format('hh:mm a');
+
+    var converted = moment(childSnapshot.val().start, "hh:mm").subtract(1, "years");
+    var difference = moment().diff(moment(converted), "minutes");
+    var timeRemaining = difference % childSnapshot.val().trainFrequency;
+    var minToArrival =childSnapshot.val().trainFrequency - timeRemaining;
+    var next = moment().add(timeRemaining, "minutes").format("hh:mm a");
     var trainStart = childSnapshot.val().start;
-    var timeRemaining = timeUntil % childSnapshot.val().trainFrequency;
 
 
 
-    var nextTrain = childSnapshot.val().trainFrequency - timeUntil;
-    var arrivalTime = moment().add(timeUntil, "minutes");
-    console.log(trainName)
 
-    //starttime = moment(childSmapshot.val().startTime, "hh:mm").subtract(1, "years");
-    //timeDiff = difference between now and starttime
-    //time remaining = diff/freq
-    //min to arrival = freq - timeRemain
-    //next train = moment + minTo arrival
-    // var timeUntil = moment().diff(moment(trainStart, "X"), "minutes");
-    var trainStartPretty = moment.unix(trainStart).format("MM/DD/YYYY");
 
     
     var newRow = $("<tr>").append(
-        $("<td>").text(trainName),
-        $("<td>").text(trainDestination),
+        $("<td>").text(childSnapshot.val().trainName),
+        $("<td>").text(childSnapshot.val().trainDestination),
         $("<td>").text(trainFrequency),
-        $("<td>").text(nextTrain),
-        $("<td>")
+        $("<td>").text(next),
+        $("<td>").text(minToArrival),
         );
 
         $("#train-table > tbody").append(newRow);
