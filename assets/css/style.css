@@ -22,6 +22,9 @@ th, tr {
     color: white;
 }
 
+.form-row {
+    width: 200%;
+}
 button#submit {
     margin-top: 10px;
 }
