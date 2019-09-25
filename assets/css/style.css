@@ -2,6 +2,7 @@
     text-align: center;
     background-color: black;
     color: white;
+    padding-bottom: 5px;
 }
 body {
     background-image: url(../images/terminal.jpg)
@@ -19,4 +20,8 @@ table {
 }
 th, tr {
     color: white;
+}
+
+button#submit {
+    margin-top: 10px;
 }
