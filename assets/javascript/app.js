@@ -22,7 +22,7 @@
 
 
   $("#submit").on("click", function(event) {
-    // event.preventDefault();
+    event.preventDefault();
     title = $("#name-input").val();
     trainDestination = $("#destination-input").val();
     trainFrequency = $("#frequency-input").val();
@@ -35,22 +35,14 @@
         trainFrequency: trainFrequency,
         start:start,
     });
+
+    alert("The " + title + " Train has been added!");
 });
 
 database.ref().on("child_added", function(childSnapshot) {
-  console.log(childSnapshot.val());
+  // console.log(childSnapshot.val());
 
 
-    // var converted = moment(start, "hh:mm").subtract(1, "years")
-    // var convertedUnix = converted.format("X");
-    // var current = moment()
-    // var currentUnix = current.format("X");
-    // var difference = moment().diff(moment(converted), 'minutes');
-    // var apart = difference % trainFrequency;
-    // var timeTillNext = trainFrequency - apart;
-    // var arrival = moment().add(timeTillNext, 'minutes');
-    // var nextUnix = arrival.format("x");
-    // var nextArrival = moment.unix(nextUnix).format("hh:mm");
 
 
     var startTimeConvert = moment(childSnapshot.val().start, "hh:mm").subtract(1, "years");
