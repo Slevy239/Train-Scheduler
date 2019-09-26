@@ -38,33 +38,41 @@
 });
 
 database.ref().on("child_added", function(childSnapshot) {
+  // console.log(childSnapshot.val());
 
 
-    var converted = moment(childSnapshot.val().start, "hh:mm").subtract(1, "years");
+    var converted = moment(childSnap.hot.val().start, "hh:mm").subtract(1, "years");
     var difference = moment().diff(moment(converted), "minutes"); //showing the difference between now and the start input.
-    var timeRemaining = difference % childSnapshot.val().trainFrequency; //train frequency/ the difference. the remainder is how much time is left until the next train.
     var nextToArrive =childSnapshot.val().trainFrequency - timeRemaining; //based on train frequency, it is subtracted by the time remaining to show the time until next train
     var next = moment().add(timeRemaining, "minutes").format("hh:mm a"); //adding current time to time remaing and reformatting
-    var trainStart = childSnapshot.val().start;
-
-
-
-
-
+    var trainStart = childSnap.hot.val().start;
     
     var newRow = $("<tr>").append(
-        $("<td>").text(childSnapshot.val().title),
-        $("<td>").text(childSnapshot.val().trainDestination),
+        $("<td>").text(childSnap.hot.val().title),
+        $("<td>").text(childSnap.hot.val().trainDestination),
         $("<td>").text(trainFrequency),
         $("<td>").text(next),
         $("<td>").text(nextToArrive),
         );
-
         $("#train-table > tbody").append(newRow);
+      });
 
-    
-});
-
-
+          (function () {
+            function checkTime(i) {
+                return (i < 10) ? "0" + i : i;
+            }
+        
+            function startTime() {
+                var today = new Date(),
+                    h = checkTime(today.getHours()),
+                    m = checkTime(today.getMinutes()),
+                    s = checkTime(today.getSeconds());
+                document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+                t = setTimeout(function () {
+                    startTime()
+                }, 500);
+            }
+            startTime();
+        })();
 
 
