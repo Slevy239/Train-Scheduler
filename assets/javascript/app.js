@@ -38,24 +38,37 @@
 });
 
 database.ref().on("child_added", function(childSnapshot) {
-  // console.log(childSnapshot.val());
+  console.log(childSnapshot.val());
 
 
-    var converted = moment(childSnap.hot.val().start, "hh:mm").subtract(1, "years");
-    var difference = moment().diff(moment(converted), "minutes"); //showing the difference between now and the start input.
+    // var converted = moment(start, "hh:mm").subtract(1, "years")
+    // var convertedUnix = converted.format("X");
+    // var current = moment()
+    // var currentUnix = current.format("X");
+    // var difference = moment().diff(moment(converted), 'minutes');
+    // var apart = difference % trainFrequency;
+    // var timeTillNext = trainFrequency - apart;
+    // var arrival = moment().add(timeTillNext, 'minutes');
+    // var nextUnix = arrival.format("x");
+    // var nextArrival = moment.unix(nextUnix).format("hh:mm");
+
+
+    var startTimeConvert = moment(childSnapshot.val().start, "hh:mm").subtract(1, "years");
+    var difference = moment().diff(moment(startTimeConvert), "minutes"); //showing the difference between now and the start input.
+    var timeRemaining = difference % childSnapshot.val().trainFrequency;
     var nextToArrive =childSnapshot.val().trainFrequency - timeRemaining; //based on train frequency, it is subtracted by the time remaining to show the time until next train
-    var next = moment().add(timeRemaining, "minutes").format("hh:mm a"); //adding current time to time remaing and reformatting
-    var trainStart = childSnap.hot.val().start;
+    var next = moment().add(nextToArrive, "minutes") //adding current time to time remaing and reformatting
     
     var newRow = $("<tr>").append(
-        $("<td>").text(childSnap.hot.val().title),
-        $("<td>").text(childSnap.hot.val().trainDestination),
-        $("<td>").text(trainFrequency),
-        $("<td>").text(next),
-        $("<td>").text(nextToArrive),
+        $("<td>").text(childSnapshot.val().title),
+        $("<td>").text(childSnapshot.val().trainDestination),
+        $("<td>").text(childSnapshot.val().trainFrequency),
+        $("<td>").text(moment(next).format("LT")),
+        $("<td>").text(nextToArrive)
         );
+        
         $("#train-table > tbody").append(newRow);
-      });
+
 
           (function () {
             function checkTime(i) {
@@ -75,4 +88,4 @@ database.ref().on("child_added", function(childSnapshot) {
             startTime();
         })();
 
-
+      })
