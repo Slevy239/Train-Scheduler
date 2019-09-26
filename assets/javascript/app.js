@@ -1,3 +1,4 @@
+$(document).ready(function() { 
 
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -52,7 +53,7 @@ database.ref().on("child_added", function(childSnapshot) {
 
     var startTimeConvert = moment(childSnapshot.val().start, "hh:mm").subtract(1, "years");
     var difference = moment().diff(moment(startTimeConvert), "minutes"); //showing the difference between now and the start input.
-    var timeRemaining = difference % childSnapshot.val().trainFrequency;
+    var timeRemaining = difference % childSnapshot.val().trainFrequency;// remainder of difference/trainFrequency;
     var nextToArrive =childSnapshot.val().trainFrequency - timeRemaining; //based on train frequency, it is subtracted by the time remaining to show the time until next train
     var next = moment().add(nextToArrive, "minutes") //adding current time to time remaing and reformatting
     
@@ -84,4 +85,5 @@ database.ref().on("child_added", function(childSnapshot) {
             startTime();
         })();
 
-      })
+      });
+    });
