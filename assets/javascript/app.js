@@ -14,7 +14,7 @@
 
   var database = firebase.database();
 
-  var trainName = "";
+  var title = "";
   var trainDestination = "";
   var start = "";
   var trainFrequency = 0;
@@ -22,19 +22,18 @@
 
 
   $("#submit").on("click", function(event) {
-    event.preventDefault();
-    nameInput = $("#name-input").val();
+    // event.preventDefault();
+    title = $("#name-input").val();
     trainDestination = $("#destination-input").val();
     trainFrequency = $("#frequency-input").val();
     start = $("#first-input").val();
 
     // Pushing to database
     database.ref().push({
-        trainName: trainName,
+        title: title,
         trainDestination: trainDestination,
         trainFrequency: trainFrequency,
         start:start,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
 });
 
@@ -54,7 +53,7 @@ database.ref().on("child_added", function(childSnapshot) {
 
     
     var newRow = $("<tr>").append(
-        $("<td>").text(childSnapshot.val().trainName),
+        $("<td>").text(childSnapshot.val().title),
         $("<td>").text(childSnapshot.val().trainDestination),
         $("<td>").text(trainFrequency),
         $("<td>").text(next),

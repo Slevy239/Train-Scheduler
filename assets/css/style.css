@@ -5,7 +5,7 @@
     padding-bottom: 5px;
 }
 body {
-    background-image: url(../images/terminal.jpg);
+    background-image: url(../images/blue.jpg);
     background-size: cover;
 }
 
@@ -23,7 +23,7 @@ th, tr {
 
 .card, .form-control {
     background-color: black;
-    color: red;
+    color: white;
 }
 
 .form-row {
