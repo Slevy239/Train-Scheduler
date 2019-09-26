@@ -23,10 +23,10 @@
 
   $("#submit").on("click", function(event) {
     event.preventDefault();
-    title = $("#name-input").val();
-    trainDestination = $("#destination-input").val();
-    trainFrequency = $("#frequency-input").val();
-    start = $("#first-input").val();
+    title = $("#name-input").val().trim();
+    trainDestination = $("#destination-input").val().trim();
+    trainFrequency = $("#frequency-input").val().trim();
+    start = $("#first-input").val().trim();
 
     // Pushing to database
     database.ref().push({
@@ -35,6 +35,11 @@
         trainFrequency: trainFrequency,
         start:start,
     });
+
+    $("#name-input").val("");
+    $("#destination-input").val("");
+    $("#frequency-input").val("");
+    $("#first-input").val("");
 
     alert("The " + title + " Train has been added!");
 });
@@ -66,7 +71,6 @@ database.ref().on("child_added", function(childSnapshot) {
             function checkTime(i) {
                 return (i < 10) ? "0" + i : i;
             }
-        
             function startTime() {
                 var today = new Date(),
                     h = checkTime(today.getHours()),
