@@ -46,10 +46,6 @@ $(document).ready(function () {
   });
 
   database.ref().on("child_added", function (childSnapshot) {
-    // console.log(childSnapshot.val());
-
-
-
 
     var startTimeConvert = moment(childSnapshot.val().start, "hh:mm").subtract(1, "years");
     var difference = moment().diff(moment(startTimeConvert), "minutes"); //showing the difference between now and the start input.
