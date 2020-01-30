@@ -1,5 +1,12 @@
 # Train-Scheduler
 
-Based on the current time, the user is able to input information about a train and compare that with the next train to arrive.
+## Description
+Accepts user input to add new train name, start time and frequency to schedule. Displays schedule in repeating table with next arrival based on current time and frequency of train stops. Stores Train info in Firebase for data persistence and retreives information from database on load. Schedules refresh every minute to reflect updated arrival information. User can delete train information from schedule and database with click of button.
 
-This application uses firebase to store user input information, jQuery to retrieve input and update the DOM.
+## Technologies Used
+* Javascript
+* JQuery
+* CSS
+* Bootstrap
+* Firebase
+* Moment.js
